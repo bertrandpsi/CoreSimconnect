@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CoreSimconnect</name>
+    </assembly>
+    <members>
+        <member name="F:CoreSimconnect.SimConnectApi.simConnectProperties">
+            <summary>
+            Contains the list of all the SimConnect properties we will read, the unit is separated by coma by our own code.
+            </summary>
+        </member>
+        <member name="F:CoreSimconnect.SimConnectApi.WM_USER_SIMCONNECT">
+            User-defined win32 event => put basically any number?
+        </member>
+        <member name="M:CoreSimconnect.SimConnectApi.Disconnect">
+            <summary>
+            Let's disconnect from SimConnect
+            </summary>
+        </member>
+        <member name="M:CoreSimconnect.SimConnectController.GetValues">
+            <summary>
+            Returns the list of SimConnect values with their names and values
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CoreSimconnect.SimConnectController.Get(System.Int32)">
+            <summary>
+            Returns a value for a given name
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreSimconnect.SimConnectController.GetStatus">
+            <summary>
+            Returns the status of the connection to the simulator
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
