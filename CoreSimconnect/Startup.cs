@@ -54,8 +54,11 @@ namespace CoreSimconnect
                 System.Threading.Thread.Sleep(100);
                 var startTime = DateTime.UtcNow;
                 while ((DateTime.UtcNow - startTime).TotalSeconds < 3) // Waits max 3 sec or when a value is returned.
+                {
                     if (simConnectApi.GetNamesAndValues().Any(row => row.Value != 0))
                         break;
+                    System.Threading.Thread.Sleep(100);
+                }
                 return simConnectApi;
             });
 
