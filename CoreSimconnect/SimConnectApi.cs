@@ -95,7 +95,7 @@ namespace CoreSimconnect
             }
         }
 
-        public void Connect()
+        private void Connect()
         {
             /// The constructor is similar to SimConnect_Open in the native API
             try
