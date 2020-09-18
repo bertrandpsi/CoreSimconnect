@@ -48,7 +48,17 @@ namespace CoreSimconnect
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddSingleton<SimConnectApi>();
+            services.AddSingleton((sp) =>
+            {
+                var simConnectApi = new SimConnectApi();
+                System.Threading.Thread.Sleep(100);
+                simConnectApi.Connect();
+                var startTime = DateTime.UtcNow;
+                while ((DateTime.UtcNow - startTime).TotalSeconds < 3) // Waits max 3 sec or when a value is returned.
+                    if (simConnectApi.GetNamesAndValues().Any(row => row.Value != 0))
+                        break;
+                return simConnectApi;
+            });
 
             services.AddMvc().AddJsonOptions(opts =>
             {

@@ -49,10 +49,8 @@ namespace CoreSimconnect
             {
                 while(true)
                 {
-                    Thread.Sleep(1000);
                     Timer_Tick(null, null);
-                    //Microsoft.AspNetCore.Components.Dispatcher.
-                    //Application.Current.MainWindow.BeginInvoke(Timer_Tick);
+                    Thread.Sleep(1000);
                 }
             });
             runner.IsBackground=true;
@@ -97,7 +95,7 @@ namespace CoreSimconnect
             }
         }
 
-        private void Connect()
+        public void Connect()
         {
             /// The constructor is similar to SimConnect_Open in the native API
             try
