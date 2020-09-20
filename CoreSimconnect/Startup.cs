@@ -15,6 +15,8 @@ namespace CoreSimconnect
 {
     public class Startup
     {
+        private SimConnectApi simConnectApi;
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -50,7 +52,7 @@ namespace CoreSimconnect
 
             services.AddSingleton((sp) =>
             {
-                var simConnectApi = new SimConnectApi();
+                simConnectApi = new SimConnectApi();
                 System.Threading.Thread.Sleep(100);
                 var startTime = DateTime.UtcNow;
                 while ((DateTime.UtcNow - startTime).TotalSeconds < 3) // Waits max 3 sec or when a value is returned.
@@ -70,7 +72,7 @@ namespace CoreSimconnect
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Microsoft.AspNetCore.Hosting.IApplicationLifetime lifetime)
         {
             if (env.IsDevelopment())
             {
@@ -99,6 +101,14 @@ namespace CoreSimconnect
             {
                 endpoints.MapControllers();
             });
+
+            lifetime.ApplicationStopping.Register(Stopping);
+        }
+
+        private void Stopping()
+        {
+            simConnectApi.Disconnect();
+            MessagePumpWindow.GetWindow().Dispose();
         }
     }
 }

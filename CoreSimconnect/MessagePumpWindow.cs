@@ -74,12 +74,12 @@ namespace CoreSimconnect
 
         private const int ERROR_CLASS_ALREADY_EXISTS = 1410;
 
-        private bool disposed = false;
+        public bool Disposed { get; private set; } = false;
         public IntPtr Hwnd { get; private set; }
 
         public void Dispose()
         {
-            if (!disposed)
+            if (!Disposed)
             {
                 // Dispose unmanaged resources
                 if (Hwnd != IntPtr.Zero)
@@ -87,7 +87,7 @@ namespace CoreSimconnect
                     DestroyWindow(Hwnd);
                     Hwnd = IntPtr.Zero;
                 }
-                disposed = true;
+                Disposed = true;
             }
             GC.SuppressFinalize(this);
         }
@@ -124,7 +124,7 @@ namespace CoreSimconnect
             var msg = new MSG();
             int r;
             // Standard WIN32 message loop
-            while ((r = GetMessage(out msg, IntPtr.Zero, 0, 0)) > 0)
+            while ((r = GetMessage(out msg, IntPtr.Zero, 0, 0)) > 0 && !GetWindow().Disposed)
             {
                 TranslateMessage(ref msg);
                 DispatchMessage(ref msg);

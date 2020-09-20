@@ -47,7 +47,7 @@ namespace CoreSimconnect
 
             var runner = new Thread((obj)=>
             {
-                while(true)
+                while(!MessagePumpWindow.GetWindow().Disposed)
                 {
                     Timer_Tick(null, null);
                     Thread.Sleep(1000);
